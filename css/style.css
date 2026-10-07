@@ -565,13 +565,18 @@ img {
 .p-reason__card {
     display: flex;
     flex-direction: column;
-    gap: 25px;
+    gap: 40px;
     width: 100%;
     margin: 0 auto;
+    padding-top: 16px;
     box-sizing: border-box;
+    counter-reset: reason;
 }
 
 .p-reason__card-item {
+    position: relative;
+    counter-increment: reason;
+    /* 1,2,3,4 とカウントアップ */
     background-color: var(--white);
     border-radius: 12px;
     padding: 24px;
@@ -580,6 +585,21 @@ img {
     margin: 0 auto;
     box-sizing: border-box;
 }
+
+/* 右上にはみ出す数字 */
+.p-reason__card-item::before {
+    content: counter(reason, decimal-leading-zero);
+    /* 01, 02, 03, 04 */
+    position: absolute;
+    top: -0.35em;
+    right: 12px;
+    font-size: 56px;
+    font-weight: 300;
+    line-height: 1;
+    color: #B8D0FF;
+    pointer-events: none;
+}
+
 
 .p-reason__card-header {
     display: flex;
@@ -792,24 +812,37 @@ img {
     margin-bottom: 30px;
 }
 
-/* 特典バナーボックス（黄色枠） */
+/* 特典バナーボックス */
 .p-price__note {
-    background-color: var(--yellow);
-    /* 指定条件 */
-    padding: 24px;
+    background-color: var(--ice-blue);
+    padding: 24px 16px;
     border-radius: 12px;
-    margin-top: 24px;
-    text-align: center;
+    margin: 24px auto 0;
     max-width: 500px;
-    margin: 0 auto;
     display: flex;
     flex-direction: column;
-    font-weight: bold;
-    gap: 10px;
+    align-items: center;
+    gap: 16px;
 }
 
-.p-price__note p {
-    font-size: 0.85rem;
+/* アイコン＋テキストの1セット */
+.p-price__note-item {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.p-price__note-icon {
+    width: 36px;
+    height: 36px;
+    flex-shrink: 0;
+}
+
+.p-price__note-text {
+    font-size: 0.9rem;
+    font-weight: 800;
+    line-height: 1.5;
+    text-align: left;
     color: #000;
 }
 
@@ -981,7 +1014,7 @@ img {
 
 .p-offer__text {
     color: var(--navy);
-    font-size: 1rem;
+    font-size: 1.5rem;
     font-weight: bold;
     line-height: 1.6;
     margin-bottom: 16px;
@@ -989,7 +1022,7 @@ img {
 
 .p-offer__subcopy {
     color: red;
-    font-size: 1rem;
+    font-size: 1.2rem;
     font-weight: bold;
     line-height: 1.6;
     margin-bottom: 32px;
@@ -1253,8 +1286,18 @@ img {
     .p-reason__card {
         display: grid;
         grid-template-columns: repeat(2, 1fr);
-        gap: 24px;
+        column-gap: 24px;
+        row-gap: 48px;
+        padding-top: 24px;
         max-width: 1200px;
+    }
+
+    /* 数字サイズ */
+    .p-reason__card-item::before {
+        font-size: 88px;
+        gap: 16px;
+        right: 20px;
+        margin-bottom: 16px;
     }
 
     .p-reason__card-item {
@@ -1325,10 +1368,16 @@ img {
     }
 
     .p-price__note {
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        font-size: 1.5rem;
+        max-width: none;
+        flex-direction: row;
+        justify-content: space-around;
+        flex-wrap: wrap;
+        gap: 16px 24px;
+        padding: 20px 32px;
+    }
+
+    .p-price__note-text {
+        font-size: 1rem;
     }
 
 
